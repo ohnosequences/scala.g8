@@ -21,7 +21,7 @@ object $name$Build extends Build {
     // retrieve the value of the organization SettingKey
     val org = extracted.get(Keys.organization)
 
-    if (org.startsWith("era7")
+    if (org.startsWith("era7"))
       sys.error("buuuh!")
     else
       sys.error("yeah")
