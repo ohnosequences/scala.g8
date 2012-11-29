@@ -15,15 +15,27 @@ object $name$Build extends Build {
   )
 
   // sample release step
-  val checkOrganization = ReleaseStep(action = st => {
+  val checkRelease = ReleaseStep(action = st => {
     // extract the build state
     val extracted = Project.extract(st)
     // retrieve the value of the organization SettingKey
     val org = extracted.get(Keys.organization)
 
-    if (org.startsWith("era7"))
-      sys.error("buuuh!")
-    else
+    val ver = extracted.get(releaseVersion)
+
+    if (ver.qualifier == Some("-SNAPSHOT")) {
+
+      cmd (
+            "echo",
+            "a snapshot release"
+          )
+
+      cmd (
+            "s3cmd", "sync", "-r", "--no-delete-removed", "--disable-multipart",
+            "artifacts/snapshots.era7.com/",
+            "s3://snapshots.era7.com"
+          )
+    } else
       sys.error("yeah")
 
     st

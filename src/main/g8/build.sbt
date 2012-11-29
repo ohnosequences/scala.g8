@@ -13,9 +13,9 @@ publishMavenStyle := true
 
 publishTo <<= version { (v: String) =>
   if (v.trim.endsWith("SNAPSHOT"))
-    Some(Resolver.file("local-snapshots", file($local_era7_snapshots$)))
+    Some(Resolver.file("local-snapshots", file("artifacts/snapshots.era7.com")))
   else
-    Some(Resolver.file("local-releases", file($local_era7_releases$)))
+    Some(Resolver.file("local-releases", file("artifacts/releases.era7.com")))
 }
 
 resolvers ++= Seq (
