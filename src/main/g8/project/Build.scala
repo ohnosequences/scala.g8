@@ -22,9 +22,9 @@ object $name$Build extends Build {
     // retrieve the value of the organization SettingKey
     val org = extracted.get(Keys.organization)
 
-    val ver = extracted.get(releaseVersion)
+    val current = version in ThisBuild
 
-    if (ver.qualifier == Some("-SNAPSHOT")) {
+    if (current.endsWith("-SNAPSHOT")) {
 
       cmd (
             "echo",
