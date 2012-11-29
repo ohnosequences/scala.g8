@@ -30,7 +30,7 @@ libraryDependencies ++= Seq (
                               "com.chuusai" % "shapeless" % "1.2.3-SNAPSHOT" cross CrossVersion.full
                             )
 
-scalacOptions += Seq(
+scalacOptions ++= Seq(
                       "-feature",
                       "-language:higherKinds",
                       "-language:implicitConversions",
