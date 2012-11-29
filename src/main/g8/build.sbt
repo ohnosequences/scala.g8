@@ -19,11 +19,11 @@ publishTo <<= version { (v: String) =>
 }
 
 resolvers ++= Seq (
-                    "Typesafe Releases" at "http://repo.typesafe.com/typesafe/releases",
-                    "Sonatype Releases" at "https://oss.sonatype.org/content/repositories/releases",
-                    "Sonatype Public"   at "https://oss.sonatype.org/content/groups/public",
-                    "Era7 Releases"     at "http://releases.era7.com.s3.amazonaws.com",
-                    "Era7 Snapshots"    at "http://snapshots.era7.com.s3.amazonaws.com"
+                    "Typesafe Releases"   at "http://repo.typesafe.com/typesafe/releases",
+                    "Sonatype Releases"   at "https://oss.sonatype.org/content/repositories/releases",
+                    "Sonatype Snapshots"  at "https://oss.sonatype.org/content/repositories/snapshots",
+                    "Era7 Releases"       at "http://releases.era7.com.s3.amazonaws.com",
+                    "Era7 Snapshots"      at "http://snapshots.era7.com.s3.amazonaws.com"
                   )
 
 libraryDependencies ++= Seq (
