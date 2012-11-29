@@ -5,6 +5,7 @@ import Keys._
 import sbtrelease.ReleasePlugin._
 import sbtrelease._
 import ReleaseStateTransformations._
+import sbtrelease.ReleasePlugin.ReleaseKeys._
 
 object $name$Build extends Build {
 
