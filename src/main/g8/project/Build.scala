@@ -12,44 +12,61 @@ object $name$Build extends Build {
   lazy val $name$ = Project(
     id = "$name$",
     base = file("."),
-    settings = Defaults.defaultSettings ++ releaseSettings
+    settings = Defaults.defaultSettings ++ releaseSettings ++ Seq(
+
+        releaseProcess <<= thisProjectRef apply { ref =>
+          Seq[ReleaseStep](
+            checkSnapshotDependencies,              // : ReleaseStep
+            inquireVersions,                        // : ReleaseStep
+            runTest,                                // : ReleaseStep
+            setReleaseVersion,                      // : ReleaseStep
+            commitReleaseVersion,                   // : ReleaseStep, performs the initial git checks
+            tagRelease,                             // : ReleaseStep
+            publishArtifacts,                       // : ReleaseStep, checks whether `publishTo` is properly set up
+            uploadArtifacts,                        // : ReleaseStep, uploads generated artifacts to s3
+            setNextVersion,                         // : ReleaseStep
+            commitNextVersion                       // : ReleaseStep
+            pushChanges                             // : ReleaseStep, also checks that an upstream branch is properly configured
+          )
+        }
+      )
   )
 
   // sample release step
   val uploadArtifacts = ReleaseStep(action = st => {
     // extract the build state
     val extracted = Project.extract(st)
-    // retrieve the value of the organization SettingKey
-    val org = extracted.get(Keys.organization)
+    // get version
+    // WARN: this is the version in build.sbt!!
+    val releasedVersion = extracted.get(version in ThisBuild)
 
-    val current = extracted.get(version in ThisBuild)
+    val s3cmdOutput: String = if (releasedVersion.endsWith("-SNAPSHOT")) {
 
-    if (current.endsWith("-SNAPSHOT")) {
+      st.log.info("a snapshot release")
+      st.log.info("artifacts will be uploaded to the snapshots repo")
 
-      cmd (
-            "echo",
-            "a snapshot release"
-          )
-
-      cmd (
+      Seq (
             "s3cmd", "sync", "-r", "--no-delete-removed", "--disable-multipart",
             "artifacts/snapshots.era7.com/",
-            "s3://snapshots.era7.com"
-          )
-    } else
-      cmd (
-            "echo",
-            "a normal release"
-          )
+            "s3://snapshots.era7.com/"
+          ).!!
 
-      cmd (
-            "s3cmd", "sync", "-r", "--no-delete-removed", "--disable-multipart",
-            "artifacts/releases.era7.com/",
-            "s3://releases.era7.com/"
-          )
+    } else {
+
+      st.log.info("a normal release")
+      st.log.info("artifacts will be uploaded to the releases repo")
+      
+      Seq (
+          "s3cmd", "sync", "-r", "--no-delete-removed", "--disable-multipart",
+          "artifacts/releases.era7.com/",
+          "s3://releases.era7.com/"
+        ).!!
+    }
+
+    st.log.info("output from s3cmd: ")
+    st.log.info(s3cmdOutput)
 
     st
   })
-
 
 }
