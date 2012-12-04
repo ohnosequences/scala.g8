@@ -1,4 +1,9 @@
 
+import sbtrelease._
+import ReleaseStateTransformations._
+
+import $name$Build._
+
 name := "$name$"
 
 organization := "$org$"
@@ -17,6 +22,20 @@ publishTo <<= version { (v: String) =>
   else
     Some(Resolver.file("local-releases", file("artifacts/releases.era7.com")))
 }
+
+releaseProcess := Seq[ReleaseStep](
+  checkSnapshotDependencies,              // : ReleaseStep
+  inquireVersions,                        // : ReleaseStep
+  runTest,                                // : ReleaseStep
+  setReleaseVersion,                      // : ReleaseStep
+  commitReleaseVersion,                   // : ReleaseStep, performs the initial git checks
+  tagRelease,                             // : ReleaseStep
+  publishArtifacts,                       // : ReleaseStep, checks whether `publishTo` is properly set up
+  uploadArtifacts,                        // : ReleaseStep, uploads generated artifacts to s3
+  setNextVersion,                         // : ReleaseStep
+  commitNextVersion,                      // : ReleaseStep
+  pushChanges                             // : ReleaseStep, also checks that an upstream branch is properly configured
+)
 
 resolvers ++= Seq (
                     "Typesafe Releases"   at "http://repo.typesafe.com/typesafe/releases",

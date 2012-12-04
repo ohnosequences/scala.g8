@@ -16,13 +16,13 @@ object $name$Build extends Build {
   )
 
   // sample release step
-  val checkRelease = ReleaseStep(action = st => {
+  val uploadArtifacts = ReleaseStep(action = st => {
     // extract the build state
     val extracted = Project.extract(st)
     // retrieve the value of the organization SettingKey
     val org = extracted.get(Keys.organization)
 
-    val current = version in ThisBuild
+    val current = extracted.get(version in ThisBuild)
 
     if (current.endsWith("-SNAPSHOT")) {
 
@@ -37,7 +37,16 @@ object $name$Build extends Build {
             "s3://snapshots.era7.com"
           )
     } else
-      sys.error("yeah")
+      cmd (
+            "echo",
+            "a normal release"
+          )
+
+      cmd (
+            "s3cmd", "sync", "-r", "--no-delete-removed", "--disable-multipart",
+            "artifacts/releases.era7.com/",
+            "s3://releases.era7.com/"
+          )
 
     st
   })

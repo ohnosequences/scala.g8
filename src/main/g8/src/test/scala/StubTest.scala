@@ -1,4 +1,4 @@
 package $org$.$name;format="norm"$
 
-class Stub {
+class StubTest {
 }
