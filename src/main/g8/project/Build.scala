@@ -25,7 +25,7 @@ object $name$Build extends Build {
             publishArtifacts,                       // : ReleaseStep, checks whether `publishTo` is properly set up
             uploadArtifacts,                        // : ReleaseStep, uploads generated artifacts to s3
             setNextVersion,                         // : ReleaseStep
-            commitNextVersion                       // : ReleaseStep
+            commitNextVersion,                      // : ReleaseStep
             pushChanges                             // : ReleaseStep, also checks that an upstream branch is properly configured
           )
         }
