@@ -32,7 +32,7 @@ resolvers ++= Seq (
                   )
 
 libraryDependencies ++= Seq (
-                              "com.chuusai" % "shapeless" % "1.2.3-SNAPSHOT" cross CrossVersion.full
+                              "com.chuusai" % "shapeless" % "1.2.3" cross CrossVersion.full
                             )
 
 scalacOptions ++= Seq(
