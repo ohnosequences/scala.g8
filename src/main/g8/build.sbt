@@ -12,33 +12,31 @@ version := "$version$"
 
 scalaVersion := "$scala_version$"
 
-// crossScalaVersions := Seq("2.10.0.RC1", "2.10.0.RC2")
+// crossScalaVersions := Seq("2.9.1", "2.9.2", "2.10.0")
 
-publishMavenStyle := true
+publishMavenStyle := false
 
-publishTo <<= version { (v: String) =>
-  if (v.trim.endsWith("SNAPSHOT"))
-    Some(Resolver.file("local-snapshots", file("artifacts/snapshots.era7.com")))
-  else
-    Some(Resolver.file("local-releases", file("artifacts/releases.era7.com")))
+publishTo <<= (version) { (v: String) =>
+  Some(s3resolver(isSnapshot = v.trim.endsWith("SNAPSHOT"), isPrivate = true, publisher = true))
 }
 
 resolvers ++= Seq (
-                    "Typesafe Releases"   at "http://repo.typesafe.com/typesafe/releases",
-                    "Sonatype Releases"   at "https://oss.sonatype.org/content/repositories/releases",
-                    "Sonatype Snapshots"  at "https://oss.sonatype.org/content/repositories/snapshots",
-                    "Era7 Releases"       at "http://releases.era7.com.s3.amazonaws.com",
-                    "Era7 Snapshots"      at "http://snapshots.era7.com.s3.amazonaws.com"
+                    "Typesafe Releases"   at "http://repo.typesafe.com/typesafe/releases"
+                  , "Sonatype Releases"   at "https://oss.sonatype.org/content/repositories/releases"
+                  , "Sonatype Snapshots"  at "https://oss.sonatype.org/content/repositories/snapshots"
+                  , "Era7 Releases"       at "http://releases.era7.com.s3.amazonaws.com"
+                  , "Era7 Snapshots"      at "http://snapshots.era7.com.s3.amazonaws.com"
                   )
+
+resolvers ++= s3resolvers
 
 libraryDependencies ++= Seq (
                               "com.chuusai" %% "shapeless" % "1.2.3"
                             )
 
-scalacOptions ++= Seq(
-                      "-feature",
-                      "-language:higherKinds",
-                      "-language:implicitConversions",
-                      "-deprecation",
-                      "-unchecked"
+scalacOptions ++= Seq("-feature"
+                    , "-language:higherKinds"
+                    , "-language:implicitConversions"
+                    , "-deprecation"
+                    , "-unchecked"
                     )
