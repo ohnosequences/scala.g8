@@ -1,35 +1,32 @@
 
 import sbtrelease._
 import ReleaseStateTransformations._
+import ReleasePlugin._
+import ReleaseKeys._
 
-import $name$Build._
 
 name := "$name$"
 
 organization := "$org$"
 
-version := "$version$"
-
 scalaVersion := "$scala_version$"
 
-// crossScalaVersions := Seq("2.10.0.RC1", "2.10.0.RC2")
 
-publishMavenStyle := true
+publishMavenStyle := false
 
-publishTo <<= version { (v: String) =>
-  if (v.trim.endsWith("SNAPSHOT"))
-    Some(Resolver.file("local-snapshots", file("artifacts/snapshots.era7.com")))
-  else
-    Some(Resolver.file("local-releases", file("artifacts/releases.era7.com")))
+publishTo <<= (isSnapshot, s3resolver) { 
+                (snapshot,   resolver) => 
+  val prefix = if (snapshot) "snapshots" else "releases"
+  resolver("Era7 "+prefix+" S3 bucket", "s3://"+prefix+".era7.com")
 }
 
-resolvers ++= Seq (
-                    "Typesafe Releases"   at "http://repo.typesafe.com/typesafe/releases",
-                    "Sonatype Releases"   at "https://oss.sonatype.org/content/repositories/releases",
-                    "Sonatype Snapshots"  at "https://oss.sonatype.org/content/repositories/snapshots",
-                    "Era7 Releases"       at "http://releases.era7.com.s3.amazonaws.com",
-                    "Era7 Snapshots"      at "http://snapshots.era7.com.s3.amazonaws.com"
-                  )
+resolvers ++= Seq ( 
+    Resolver.typesafeRepo("releases")
+  , Resolver.sonatypeRepo("releases")
+  , Resolver.sonatypeRepo("snapshots")
+  , "Era7 Releases"  at "http://releases.era7.com.s3.amazonaws.com"
+  , "Era7 Snapshots" at "http://snapshots.era7.com.s3.amazonaws.com"
+  )
 
 libraryDependencies ++= Seq (
                               "com.chuusai" %% "shapeless" % "1.2.3"
@@ -39,6 +36,26 @@ scalacOptions ++= Seq(
                       "-feature",
                       "-language:higherKinds",
                       "-language:implicitConversions",
+                      "-language:postfixOps",
                       "-deprecation",
                       "-unchecked"
                     )
+
+// sbt-release settings
+
+releaseSettings
+
+releaseProcess <<= thisProjectRef apply { ref =>
+  Seq[ReleaseStep](
+    checkSnapshotDependencies
+  , inquireVersions
+  , runTest
+  , setReleaseVersion
+  , commitReleaseVersion
+  , tagRelease
+  , publishArtifacts
+  , setNextVersion
+  , commitNextVersion
+  , pushChanges
+  )
+}
