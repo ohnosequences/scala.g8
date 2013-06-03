@@ -28,9 +28,6 @@ resolvers ++= Seq (
   , "Era7 Snapshots" at "http://snapshots.era7.com.s3.amazonaws.com"
   )
 
-libraryDependencies ++= Seq (
-                              "com.chuusai" %% "shapeless" % "1.2.3"
-                            )
 
 scalacOptions ++= Seq(
                       "-feature",
