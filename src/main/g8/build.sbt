@@ -1,4 +1,3 @@
-
 import sbtrelease._
 import ReleaseStateTransformations._
 import ReleasePlugin._
@@ -12,13 +11,13 @@ organization := "$org$"
 scalaVersion := "$scala_version$"
 
 
-publishMavenStyle := false
-
-publishTo <<= (isSnapshot, s3resolver) { 
-                (snapshot,   resolver) => 
+// for publishing you need to set `s3credentials`
+publishTo <<= (isSnapshot, s3credentials) { 
+                (snapshot,   credentials) => 
   val prefix = if (snapshot) "snapshots" else "releases"
-  resolver("Era7 "+prefix+" S3 bucket", "s3://"+prefix+".era7.com")
+  credentials map s3resolver("Era7 "+prefix+" S3 bucket", "s3://"+prefix+".era7.com")
 }
+
 
 resolvers ++= Seq ( 
     Resolver.typesafeRepo("releases")
@@ -30,16 +29,16 @@ resolvers ++= Seq (
 
 
 scalacOptions ++= Seq(
-                      "-feature",
-                      "-language:higherKinds",
-                      "-language:implicitConversions",
-                      "-language:postfixOps",
-                      "-deprecation",
-                      "-unchecked"
-                    )
+    "-feature"
+  , "-language:higherKinds"
+  , "-language:implicitConversions"
+  , "-language:postfixOps"
+  , "-deprecation"
+  , "-unchecked"
+  )
+
 
 // sbt-release settings
-
 releaseSettings
 
 releaseProcess <<= thisProjectRef apply { ref =>
