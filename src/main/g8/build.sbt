@@ -6,7 +6,16 @@ import ReleaseKeys._
 
 name := "$name$"
 
+description := "$name$ project"
+
+homepage := "https://github.com/$org$/$name$"
+
 organization := "$org$"
+
+organizationHomepage := "http://$org$.com"
+
+licenses := "AGPLv3" -> "http://www.gnu.org/licenses/agpl-3.0.txt"
+
 
 scalaVersion := "$scala_version$"
 
