@@ -8,13 +8,13 @@ name := "$name$"
 
 description := "$name$ project"
 
-homepage := "https://github.com/$org$/$name$"
+homepage := Some(url("https://github.com/$org$/$name$"))
 
 organization := "$org$"
 
-organizationHomepage := "http://$org$.com"
+organizationHomepage := Some(url("http://$org$.com"))
 
-licenses := "AGPLv3" -> "http://www.gnu.org/licenses/agpl-3.0.txt"
+licenses := "AGPLv3" -> url("http://www.gnu.org/licenses/agpl-3.0.txt")
 
 
 scalaVersion := "$scala_version$"
