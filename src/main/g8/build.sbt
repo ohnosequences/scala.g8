@@ -14,7 +14,7 @@ organization := "$org$"
 
 organizationHomepage := Some(url("http://$org$.com"))
 
-licenses := "AGPLv3" -> url("http://www.gnu.org/licenses/agpl-3.0.txt")
+licenses := Seq("AGPLv3" -> url("http://www.gnu.org/licenses/agpl-3.0.txt")
 
 
 scalaVersion := "$scala_version$"
