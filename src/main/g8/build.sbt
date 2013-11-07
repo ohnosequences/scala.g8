@@ -1,4 +1,4 @@
-Era7.scalaProject
+Nice.scalaProject
 
 name := "$name$"
 
