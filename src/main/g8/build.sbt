@@ -1,4 +1,4 @@
-Nice.scalaProject
+Nice.javaProject
 
 name := "$name$"
 
