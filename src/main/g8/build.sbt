@@ -1,9 +1,11 @@
 Nice.scalaProject
 
+organization := "$org$"
+
 name := "$name$"
 
 description := "$name$ project"
 
-organization := "$org$"
-
 bucketSuffix := "era7.com"
+
+docsOutputDir := "docs/src/"
