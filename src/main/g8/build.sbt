@@ -1,11 +1,11 @@
 Nice.scalaProject
 
-organization := "$org$"
+scalaVersion  := "$scalaVersion$"
 
-name := "$name$"
+name          := "$name$"
+organization  := "$org$"
+description   := "$name$ project"
 
-description := "$name$ project"
+bucketSuffix  := "era7.com"
 
-bucketSuffix := "era7.com"
-
-libraryDependencies += "org.scalatest" %% "scalatest" % "2.1.3" % "test"
+libraryDependencies += "org.scalatest" %% "scalatest" % "2.2.1" % "test"
