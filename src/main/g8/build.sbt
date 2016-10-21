@@ -1,5 +1,3 @@
-Nice.scalaProject
-
 name          := "$name$"
 organization  := "$org$"
 description   := "$name$ project"
