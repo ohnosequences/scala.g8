@@ -15,13 +15,12 @@ project/plugins/project/
 .idea
 .idea/*
 
-# st2
-*.sublime-project
-*.sublime-workspace
-
 # data folders
 data/in/
 data/out/
 
-credentials.sbt
-*credentials*
+.tags*
+.sublime*
+.atom*
+.ensime*
+.idea*
