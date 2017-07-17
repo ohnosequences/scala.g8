@@ -11,6 +11,10 @@ project/plugins/project/
 # Scala-IDE specific
 .scala_dependencies
 
+# IDEA
+.idea
+.idea/*
+
 # data folders
 data/in/
 data/out/

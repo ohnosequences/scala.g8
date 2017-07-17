@@ -4,6 +4,9 @@ description   := "$name$ project"
 
 bucketSuffix  := "era7.com"
 
+enablePlugin(JavaOnlySettings)
+javaVersion := "1.8"
+
 // libraryDependencies ++= Seq()
 
 
