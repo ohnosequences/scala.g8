@@ -18,3 +18,7 @@ bucketSuffix  := "era7.com"
 
 // // This turns on fat-jar publishing during release process:
 // publishFatArtifact in Release := true
+
+// // Only for Java projects
+// enablePlugin(JavaOnlySettings)
+// javaVersion := "1.8"
