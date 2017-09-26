@@ -4,7 +4,9 @@ description   := "$name$ project"
 
 bucketSuffix  := "era7.com"
 
-libraryDependencies ++= Seq()
+libraryDependencies ++= Seq(
+  "org.scalatest" %% "scalatest" % "$scalatest_version$" % Test
+)
 
 // For resolving dependencies version conflicts:
 // dependencyOverrides ++= Set()
