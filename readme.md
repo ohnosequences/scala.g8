@@ -1,5 +1,8 @@
 # Project template: _general Scala project_
 
+[![](https://travis-ci.org/era7bio/scala.g8.svg?branch=master)](https://travis-ci.org/era7bio/scala.g8)
+[![](https://img.shields.io/badge/license-CC_BY--SA_4.0-blue.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
+
 This is a general template for Era7 Scala projects. It helps you to get the initial project structure.
 
 First of all you will need [sbt v1.0 or newer](http://www.scala-sbt.org/download.html). To apply this template, go to the directory where you keep projects and run
