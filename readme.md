@@ -2,7 +2,7 @@
 
 This is a general template for Era7 Scala projects. It helps you to get the initial project structure.
 
-First of all you will need [sbt v0.13.13 or newer](http://www.scala-sbt.org/download.html). To apply this template, go to the directory where you keep projects and run
+First of all you will need [sbt v1.0 or newer](http://www.scala-sbt.org/download.html). To apply this template, go to the directory where you keep projects and run
 
 ```shell
 sbt new era7bio/scala.g8
@@ -20,5 +20,5 @@ This template uses [standard sbt project structure](http://www.scala-sbt.org/rel
 * we use our [ohnosequences/nice-sbt-settings](https://github.com/ohnosequences/nice-sbt-settings) plugin which includes several other useful plugins and settings to reduce project definition boilerplate and standardize the release process
 * `build.sbt` is pre-populated with some necessary settings and some optional ones that are commented out in case you'll need them
 * default license for our software projects is [AGPLv3](https://tldrlegal.com/license/gnu-affero-general-public-license-v3-%28agpl-3.0%29)
-* we add `docs/` directory for any handwritten documentation as well as the auto-generated sources documentation
-* we add `notes/` directory for release notes
+* we add `docs/` directory for any handwritten documentation
+* we add `notes/` directory for release notes: keep `notes/changelog.md` up to date during development, every time you make a release, it will be used for release notes
