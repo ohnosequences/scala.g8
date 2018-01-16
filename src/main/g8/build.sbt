@@ -4,9 +4,25 @@ description   := "$name$ project"
 
 bucketSuffix  := "era7.com"
 
-libraryDependencies ++= Seq(
-  "org.scalatest" %% "scalatest" % "$scalatest_version$" % Test
-)
+// dependencies
+////////////////////////////////////////////////////////////////////////////////
+libraryDependencies ++= mainDependencies ++ testDependencies
+
+val mainDependencies = 
+  Seq()
+
+val testDependencies = 
+  Seq(
+    "org.scalatest" %% "scalatest" % "$scalatest_version$"
+  )
+  .map(_ % Test)
+
+// test settings
+////////////////////////////////////////////////////////////////////////////////
+// shows time for each test
+testOptions in Test += Tests.Argument("-oD")
+// disables parallel execution
+parallelExecution in Test := false
 
 // For resolving dependencies version conflicts:
 // dependencyOverrides ++= Set()
