@@ -1,22 +1,23 @@
-
 # sbt specific
 dist/
 target/
 boot/
 lib_managed/
 src_managed/
+project/boot/
 project/plugins/project/
 project/project/
-
-# Scala-IDE specific
-.scala_dependencies
+project/target/
 
 # data folders
 data/in/
 data/out/
 
+# editors etc
+.scala_dependencies
 .tags*
 .sublime*
 .atom*
 .ensime*
 .idea*
+.vscode*

@@ -1,1 +1,10 @@
 target/
+
+# editors etc
+.scala_dependencies
+.tags*
+.sublime*
+.atom*
+.ensime*
+.idea*
+.vscode*
